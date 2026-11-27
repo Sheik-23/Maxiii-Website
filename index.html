@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>MAXIII: Calorie &amp; Macro Tracker</title>
+    <meta name="description" content="A mobile calorie and macro tracker. Carbohydrates and fibre included by default, cooking yield calculations, and adaptive targets." />
+    <meta name="theme-color" content="#1428D0" />
+    <link rel="canonical" href="https://maxiii.app" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://maxiii.app" />
+    <meta property="og:title" content="MAXIII: Calorie &amp; Macro Tracker" />
+    <meta property="og:description" content="Carbohydrates and fibre included by default. Raw to cooked yield with oil and ghee counted." />
+    <meta property="og:image" content="/og-image.svg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://maxiii.app" />
+    <meta name="twitter:title" content="MAXIII: Calorie &amp; Macro Tracker" />
+    <meta name="twitter:description" content="Carbohydrates and fibre included by default. Raw to cooked yield with oil and ghee counted." />
+    <meta name="twitter:image" content="/og-image.svg" />
+
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Fonts: Self-hosted Anton & Bodoni Moda (preload above-the-fold faces) -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/anton-latin-400-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/bodoni-moda-latin-400-italic.woff2" crossorigin />
+
+    <!-- Structured Data (JSON-LD) - Strict pricing omission -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://maxiii.app/#organization",
+          "name": "MAXIII",
+          "url": "https://maxiii.app",
+          "logo": "https://maxiii.app/favicon.svg"
+        },
+        {
+          "@type": "MobileApplication",
+          "@id": "https://maxiii.app/#app",
+          "name": "MAXIII",
+          "operatingSystem": "iOS, Android",
+          "applicationCategory": "HealthApplication",
+          "description": "Mobile calorie and macro tracker with carbohydrates and fibre included by default, cooking yield calculations, and adaptive daily targets.",
+          "publisher": {
+            "@id": "https://maxiii.app/#organization"
+          }
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

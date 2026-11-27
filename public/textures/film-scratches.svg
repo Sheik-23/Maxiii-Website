@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <style>
+      .scratch { stroke: rgba(255, 255, 255, 0.08); stroke-width: 0.75; fill: none; }
+      .speck { fill: rgba(255, 255, 255, 0.06); }
+    </style>
+  </defs>
+  <!-- Subtle vertical film dust and scratches -->
+  <line x1="85" y1="20" x2="84" y2="480" class="scratch" stroke-dasharray="120,40,60,80" />
+  <line x1="320" y1="90" x2="321" y2="560" class="scratch" stroke-dasharray="90,140,40,30" />
+  <line x1="510" y1="10" x2="509" y2="420" class="scratch" stroke-dasharray="180,60,80,50" />
+  <circle cx="140" cy="220" r="1.5" class="speck" />
+  <circle cx="440" cy="130" r="1" class="speck" />
+  <circle cx="280" cy="460" r="2" class="speck" />
+  <circle cx="530" cy="380" r="1.2" class="speck" />
+</svg>
+

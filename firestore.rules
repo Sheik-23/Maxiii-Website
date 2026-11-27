@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Contact form submissions
+    // - Public can only create documents
+    // - No public read, update, or delete
+    // - Strict schema validation: name, email, requestType, message (<= 2000 chars), createdAt
+    // - Strict key validation: prevents arbitrary field injection
+    match /contact/{document} {
+      allow create: if request.resource.data.name is string
+                    && request.resource.data.name.trim().size() > 0
+                    && request.resource.data.name.size() <= 100
+                    && request.resource.data.email is string
+                    && request.resource.data.email.size() > 0
+                    && request.resource.data.email.size() <= 254
+                    && request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
+                    && request.resource.data.requestType in [
+                      'General question',
+                      'Privacy request (access, correction or deletion of my data)',
+                      'Support',
+                      'Feedback'
+                    ]
+                    && request.resource.data.message is string
+                    && request.resource.data.message.trim().size() > 0
+                    && request.resource.data.message.size() <= 2000
+                    && request.resource.data.createdAt == request.time
+                    && request.resource.data.keys().hasOnly(['name', 'email', 'requestType', 'message', 'createdAt']);
+      allow read, update, delete: if false;
+    }
+
+    // Waitlist submissions
+    // - Public can only create documents
+    // - No public read, update, or delete
+    // - Strict schema validation: email, role, source, createdAt
+    // - Strict key validation: prevents arbitrary field injection
+    match /waitlist/{document} {
+      allow create: if request.resource.data.email is string
+                    && request.resource.data.email.size() > 0
+                    && request.resource.data.email.size() <= 254
+                    && request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
+                    && request.resource.data.role in ['lifter', 'home_cook', 'coach']
+                    && request.resource.data.source is string
+                    && request.resource.data.source.size() <= 50
+                    && request.resource.data.createdAt == request.time
+                    && request.resource.data.keys().hasOnly(['email', 'role', 'source', 'createdAt']);
+      allow read, update, delete: if false;
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

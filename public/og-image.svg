@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Anton&amp;family=Bodoni+Moda:ital,opsz,wght@1,6..96,700&amp;display=swap');
+      .bg { fill: #1428D0; }
+      .dot { fill: #FF8A1F; }
+      .serif-italic { font-family: 'Bodoni Moda', Didot, serif; font-style: italic; font-weight: 700; fill: #FBF1DC; font-size: 64px; }
+      .subhead { font-family: -apple-system, sans-serif; font-size: 22px; font-weight: 600; fill: #EBB945; letter-spacing: 4px; text-transform: uppercase; }
+      .stamp { fill: none; stroke: #FF8A1F; stroke-width: 3; }
+      .stamp-text { font-family: -apple-system, sans-serif; font-size: 16px; font-weight: 700; fill: #FF8A1F; letter-spacing: 2px; }
+    </style>
+  </defs>
+
+  <!-- Cobalt Blue Poster Background -->
+  <rect width="1200" height="630" class="bg" />
+
+  <!-- Magazine Top Bar Header -->
+  <text x="60" y="80" class="subhead">MAXIII APP • FOR THE INDIAN KITCHEN &amp; GYM FLOOR</text>
+  <line x1="60" y1="100" x2="1140" y2="100" stroke="#FBF1DC" stroke-width="2" stroke-opacity="0.3" />
+
+  <!-- Giant maxiii Wordmark with 3 round saffron dots -->
+  <g transform="translate(60, 220) scale(0.9)">
+    <!-- m -->
+    <path d="M20 283V114C20 112 21 110 24 110H68C70 110 71 112 71 114V135C83 118 103 108 129 108C154 108 171 120 180 137C194 118 214 108 240 108C278 108 284 133 284 173V283H235V176C235 156 228 147 212 147C196 147 186 157 186 177V283H137V176C137 156 130 147 114 147C98 147 88 157 88 177V283H20Z" fill="#FBF1DC" />
+    <!-- a (Single-story geometric) -->
+    <path d="M387 108C339 108 300 147 300 196.5C300 246 339 285 387 285C409 285 428 277 442 263V283H472V114C472 112 470 110 468 110H442V130C428 116 409 108 387 108ZM387 241C362.5 241 343 221 343 196.5C343 172 362.5 152 387 152C411.5 152 431 172 431 196.5C431 221 411.5 241 387 241Z" fill="#FBF1DC" />
+    <!-- x -->
+    <path d="M489 283L563 195L493 110H554L597 165L640 110H701L631 195L705 283H644L597 225L550 283H489Z" fill="#FBF1DC" />
+    <!-- i 1 -->
+    <rect x="690" y="110" width="60" height="173" fill="#FBF1DC" />
+    <circle cx="720" cy="51" r="31" class="dot" />
+    <!-- i 2 -->
+    <rect x="773" y="110" width="61" height="173" fill="#FBF1DC" />
+    <circle cx="803.5" cy="51" r="31" class="dot" />
+    <!-- i 3 -->
+    <rect x="857" y="110" width="60" height="173" fill="#FBF1DC" />
+    <circle cx="887" cy="51" r="31" class="dot" />
+  </g>
+
+  <!-- Editorial Headline -->
+  <text x="60" y="440" class="serif-italic">"Count what you actually eat."</text>
+
+  <!-- Subtitle -->
+  <text x="60" y="520" font-family="-apple-system, sans-serif" font-size="26" font-weight="500" fill="#FBF1DC" opacity="0.9">
+    Carbs &amp; fibre included • Raw to cooked yield • Everyday measures
+  </text>
+
+  <!-- Circular Poster Stamp Right -->
+  <g transform="translate(1020, 480)">
+    <circle cx="0" cy="0" r="70" class="stamp" />
+    <circle cx="0" cy="0" r="62" class="stamp" stroke-dasharray="6,4" />
+    <text x="0" y="-8" text-anchor="middle" class="stamp-text">MAXIII</text>
+    <text x="0" y="14" text-anchor="middle" class="stamp-text">TRACKER</text>
+    <text x="0" y="34" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#FBF1DC" opacity="0.8">MAXIII.APP</text>
+  </g>
+</svg>

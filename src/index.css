@@ -1,0 +1,258 @@
+/* ===================================================================
+   MAXIII GLOBAL DESIGN TOKENS, TAILWIND V4 THEME & BASE LAYER
+   Editorial Poster Architecture
+   =================================================================== */
+
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/anton-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/bodoni-moda-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/bodoni-moda-latin-600-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/bodoni-moda-latin-400-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/bodoni-moda-latin-700-italic.woff2') format('woff2');
+}
+
+@import "tailwindcss";
+
+@theme {
+  --color-cobalt: #1428D0;
+  --color-mustard: #EBB945;
+  --color-deep-red: #7C0F0F;
+  --color-burnt-orange: #E4501A;
+  --color-saffron: #FF8A1F;
+  --color-cream: #FBF1DC;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-dark-ui: #0B0B0E;
+  --color-dark-surface: #141418;
+  --color-dark-card: #1C1C22;
+
+  --font-display: 'Anton', Impact, 'Arial Narrow', sans-serif;
+  --font-serif: 'Bodoni Moda', 'Didot', 'Bodoni MT', Georgia, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'SF Mono', Menlo, Consolas, monospace;
+
+  --ease-dramatic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-punchy: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --color-dark-border: rgba(255, 255, 255, 0.08);
+  --duration-fast: 0.35s;
+  --duration-base: 0.75s;
+  --duration-slow: 1.2s;
+  --stagger-base: 0.08s;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  ::selection {
+    background-color: var(--color-saffron);
+    color: var(--color-black);
+  }
+
+  ::-moz-selection {
+    background-color: var(--color-saffron);
+    color: var(--color-black);
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0B0B0E;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #262630;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-saffron);
+  }
+
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--color-black);
+    color: var(--color-cream);
+    scroll-behavior: auto;
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+    width: 100%;
+    touch-action: manipulation;
+  }
+
+  body {
+    width: 100%;
+    min-height: 100svh;
+    overflow-x: clip;
+    background-color: var(--color-black);
+    line-height: 1.5;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-saffron);
+    outline-offset: 4px;
+  }
+}
+
+.type-display-giant {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 12vw, 14rem);
+  line-height: 0.88;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.type-display-outline {
+  -webkit-text-stroke: 2px currentColor;
+  color: transparent;
+}
+
+.type-serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 20px;
+  background: var(--color-cream);
+  color: var(--color-black);
+  padding: 12px 20px;
+  font-weight: 700;
+  font-size: 14px;
+  z-index: 99999;
+  border-radius: 4px;
+  transition: top var(--duration-fast) var(--ease-dramatic);
+  text-decoration: none;
+}
+
+.skip-to-content:focus {
+  top: 20px;
+}
+
+@keyframes grainJitter {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(-3%, 2%); }
+  66% { transform: translate(2%, -3%); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes scratchFlicker {
+  0%, 100% { opacity: 0.35; transform: scaleY(1); }
+  25% { opacity: 0.15; transform: scaleY(1.02); }
+  50% { opacity: 0.45; transform: scaleY(0.98); }
+  75% { opacity: 0.2; transform: scaleY(1.01); }
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollMarqueeLeft {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes scrollMarqueeRight {
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes loopTopToBottom {
+  0% { transform: translate3d(0, -50%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes sweepAnim {
+  0% { top: 25%; }
+  100% { top: 75%; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes toastEnter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -24px, 0) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes steamRise {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scaleY(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) scaleY(1.03);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
