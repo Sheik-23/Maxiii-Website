@@ -4,6 +4,7 @@ node_modules
 # Production & SSR build outputs
 dist
 dist-ssr
+.vite/
 *.local
 
 # TypeScript incremental build info
@@ -14,15 +15,34 @@ dist-ssr
 .env.*
 !.env.example
 
-# Playwright test artifacts
+# Tests, Playwright artifacts & test media (images / videos)
+tests/
+test/
+playwright.config.ts
 playwright-report/
 test-results/
 blob-report/
-playwright/.cache/
+playwright/
+qa-recordings/
+test-screenshots/
+tests/**/*.webm
+tests/**/*.mp4
+*.webm
+*.mp4
+*.mov
+coverage/
 
-# Hosting & cloud caches (Vercel / Firebase)
+# Audit & design docs
+AUDIT.md
+DESIGN.md
+QA-REPORT.md
+UPGRADE_REPORT.md
+ASSETS.md
+
+# Hosting, lint & cloud caches (Vercel / Firebase / ESLint)
 .vercel
 .firebase/
+.eslintcache
 firebase-debug.log*
 firestore-debug.log*
 
