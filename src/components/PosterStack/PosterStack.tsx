@@ -63,10 +63,11 @@ export const PosterStack: React.FC<PosterStackProps> = ({ posters, className = '
         const currentEl = sectionRefs.current[idx];
         if (!currentEl) return;
 
+        const isLastPoster = idx === posters.length - 1;
         ScrollTrigger.create({
           trigger: currentEl,
           start: 'top 50%',
-          end: 'bottom 50%',
+          end: isLastPoster ? 'bottom 95%' : 'bottom 50%',
           onEnter: () => {
             document.documentElement.style.backgroundColor = poster.color;
             document.body.style.backgroundColor = poster.color;
@@ -74,7 +75,15 @@ export const PosterStack: React.FC<PosterStackProps> = ({ posters, className = '
           onEnterBack: () => {
             document.documentElement.style.backgroundColor = poster.color;
             document.body.style.backgroundColor = poster.color;
-          }
+          },
+          ...(isLastPoster
+            ? {
+                onLeave: () => {
+                  document.documentElement.style.backgroundColor = '#000000';
+                  document.body.style.backgroundColor = '#000000';
+                }
+              }
+            : {})
         });
       });
 

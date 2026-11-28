@@ -19,6 +19,19 @@ export const Footer: React.FC = () => {
     if (prefersReducedMotion() || !footerRef.current) return;
 
     const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: footerRef.current,
+        start: 'top 95%',
+        onEnter: () => {
+          document.documentElement.style.backgroundColor = '#000000';
+          document.body.style.backgroundColor = '#000000';
+        },
+        onEnterBack: () => {
+          document.documentElement.style.backgroundColor = '#000000';
+          document.body.style.backgroundColor = '#000000';
+        }
+      });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: footerRef.current,
@@ -43,7 +56,7 @@ export const Footer: React.FC = () => {
   return (
     <footer
       ref={footerRef}
-      className="bg-black text-cream pt-20 px-10 pb-10 max-md:pt-[60px] max-md:px-5 max-md:pb-[30px] border-t border-[rgba(251,241,220,0.1)]"
+      className="bg-black text-cream pt-20 px-10 pb-[calc(40px+env(safe-area-inset-bottom))] max-md:pt-[60px] max-md:px-5 max-md:pb-[calc(30px+env(safe-area-inset-bottom))] border-t border-[rgba(251,241,220,0.1)]"
       role="contentinfo"
     >
       <div className="max-w-[1320px] mx-auto">
