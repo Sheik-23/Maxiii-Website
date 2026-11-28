@@ -38,6 +38,12 @@ export function useLenis() {
     });
     activeLenis = lenis;
 
+    const navEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+    if (navEntry?.type === 'reload' || !window.location.hash) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      lenis.scrollTo(0, { immediate: true, force: true });
+    }
+
     // Synchronize Lenis with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
