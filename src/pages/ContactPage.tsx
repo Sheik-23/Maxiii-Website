@@ -101,26 +101,27 @@ export const ContactPage: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const [{ collection, addDoc, serverTimestamp }, { db }] = await Promise.all([
-        import('firebase/firestore'),
-        import('../firebase')
-      ]);
-      let timeoutId: number | undefined;
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 10000);
       try {
-        await Promise.race([
-          addDoc(collection(db, 'contact'), {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
             name: trimmedName,
             email: trimmedEmail.toLowerCase(),
             requestType,
             message: trimmedMessage,
-            createdAt: serverTimestamp()
+            website_url_hp: honeypot
           }),
-          new Promise<never>((_, reject) => {
-            timeoutId = window.setTimeout(() => reject(new Error('Request timed out')), 10000);
-          })
-        ]);
+          signal: controller.signal
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to send message');
+        }
       } finally {
-        if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+        window.clearTimeout(timeoutId);
       }
 
       try {

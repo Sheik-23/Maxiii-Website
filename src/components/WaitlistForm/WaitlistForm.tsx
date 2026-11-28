@@ -85,114 +85,72 @@ export const WaitlistForm: React.FC<WaitlistFormProps> = ({ source = 'website' }
     }
 
     try {
-      // 1. Submit directly to Firebase Firestore waitlist collection (with 10s timeout so offline/blocked clients fall back cleanly)
-      let timeoutId: number | undefined;
-      try {
-        const [{ collection, addDoc, serverTimestamp }, { db }] = await Promise.all([
-          import('firebase/firestore'),
-          import('../../firebase')
-        ]);
-        await Promise.race([
-          addDoc(collection(db, 'waitlist'), {
-            email: cleanEmail,
-            role,
-            source,
-            createdAt: serverTimestamp(),
-          }),
-          new Promise<never>((_, reject) => {
-            timeoutId = window.setTimeout(() => reject(new Error('Firestore timeout')), 10000);
-          })
-        ]);
-      } finally {
-        if (timeoutId !== undefined) window.clearTimeout(timeoutId);
-      }
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: cleanEmail, role, source, website_url_hp: honeypot })
+      });
 
+      let data: { code?: string; message?: string } = {};
       try {
-        localStorage.setItem('maxiii_last_submit', Date.now().toString());
+        data = await response.json();
       } catch {
-        // ignore storage restrictions
+        // Non-JSON error response
       }
 
-      if (isMountedRef.current) {
-        setStatus('success');
-        setToast({
-          id: 'waitlist-submit',
-          type: 'success',
-          title: 'Success',
-          message: 'We will send updates to you, buddy!',
-          autoClose: true
-        });
-      }
-    } catch {
-      // Fallback to /api/waitlist endpoint if Firebase direct fails
-      try {
-        const response = await fetch('/api/waitlist', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: cleanEmail, role, source, website_url_hp: honeypot })
-        });
-
-        let data: { code?: string; message?: string } = {};
+      if (response.status === 200 || response.status === 201) {
         try {
-          data = await response.json();
+          localStorage.setItem('maxiii_last_submit', Date.now().toString());
         } catch {
-          // Non-JSON error response
+          // ignore storage restrictions
         }
-
-        if (response.status === 200 || response.status === 201) {
-          try {
-            localStorage.setItem('maxiii_last_submit', Date.now().toString());
-          } catch {
-            // ignore storage restrictions
-          }
-          if (isMountedRef.current) {
-            setStatus('success');
-            setToast({
-              id: 'waitlist-submit',
-              type: 'success',
-              title: 'Success',
-              message: 'We will send updates to you, buddy!',
-              autoClose: true
-            });
-          }
-        } else if (response.status === 409 || data.code === 'DUPLICATE') {
-          if (isMountedRef.current) {
-            setStatus('duplicate');
-            setToast({
-              id: 'waitlist-submit',
-              type: 'duplicate',
-              title: 'Success',
-              message: 'We will send updates to you, buddy!',
-              autoClose: true
-            });
-          }
-        } else {
-          const failureText = data.message || 'Something went wrong. Please try again.';
-          if (isMountedRef.current) {
-            setStatus('error');
-            setErrorMessage(failureText);
-            setToast({
-              id: 'waitlist-submit',
-              type: 'error',
-              title: 'Error',
-              message: failureText,
-              autoClose: true
-            });
-          }
+        if (isMountedRef.current) {
+          setStatus('success');
+          setToast({
+            id: 'waitlist-submit',
+            type: 'success',
+            title: 'Success',
+            message: 'We will send updates to you, buddy!',
+            autoClose: true
+          });
         }
-      } catch {
-        const genericErr = 'Unable to register at this time. Please try again shortly.';
+      } else if (response.status === 409 || data.code === 'DUPLICATE') {
+        if (isMountedRef.current) {
+          setStatus('duplicate');
+          setToast({
+            id: 'waitlist-submit',
+            type: 'duplicate',
+            title: 'Success',
+            message: 'We will send updates to you, buddy!',
+            autoClose: true
+          });
+        }
+      } else {
+        const failureText = data.message || 'Something went wrong. Please try again.';
         if (isMountedRef.current) {
           setStatus('error');
-          setErrorMessage(genericErr);
+          setErrorMessage(failureText);
           setToast({
             id: 'waitlist-submit',
             type: 'error',
             title: 'Error',
-            message: genericErr,
+            message: failureText,
             autoClose: true
           });
         }
+      }
+    } catch {
+      const genericErr = 'Unable to register at this time. Please try again shortly.';
+      if (isMountedRef.current) {
+        setStatus('error');
+        setErrorMessage(genericErr);
+        setToast({
+          id: 'waitlist-submit',
+          type: 'error',
+          title: 'Error',
+          message: genericErr,
+          autoClose: true
+        });
       }
     }
   };

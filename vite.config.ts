@@ -37,12 +37,6 @@ export default defineConfig({
           ) {
             return 'animation';
           }
-          if (
-            id.includes('node_modules/firebase/') ||
-            id.includes('node_modules/@firebase/')
-          ) {
-            return 'firebase';
-          }
         }
       }
     }
